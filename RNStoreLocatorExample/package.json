@@ -1,0 +1,30 @@
+{
+	"name": "RNStoreLocatorExample",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"test": "jest",
+		"preinstall": "./scripts/npm_pack.sh"
+	},
+	"dependencies": {
+		"@mapbox/react-native-mapbox-gl": "git+ssh://git@github.com:mapbox/react-native-mapbox-gl.git",
+		"@mapbox/store-locator-react-native": "file:../mapbox-store-locator-react-native-0.0.1.tgz",
+		"@turf/bbox": "^5.0.4",
+		"@turf/distance": "^5.0.4",
+		"prop-types": "^15.6.0",
+		"react": "16.0.0",
+		"react-native": "^0.50.4",
+		"react-native-linear-gradient": "^2.3.0",
+		"react-native-vector-icons": "^4.4.2"
+	},
+	"devDependencies": {
+		"babel-jest": "21.2.0",
+		"babel-preset-react-native": "4.0.0",
+		"jest": "21.2.1",
+		"react-test-renderer": "16.0.0"
+	},
+	"jest": {
+		"preset": "react-native"
+	}
+}
