@@ -14,10 +14,24 @@ const styles = MapboxGL.StyleSheet.create({
 
 class CurrentLocation extends React.Component {
   static propTypes = {
+    /**
+     * Overrides default user location
+     */
     mockUserLocation: PropTypes.arrayOf(PropTypes.number),
-    pulse: PropTypes.bool,
+
+    /**
+     * Get fired everytime the user location changes
+     */
     onLocationChange: PropTypes.func,
+
+    /**
+     * Inner circle layer style
+     */
     innerCircleStyle: PropTypes.any,
+
+    /**
+     * Outer circle layer style
+     */
     outerCircleStyle: PropTypes.any,
   };
 
