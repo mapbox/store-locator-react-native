@@ -14,7 +14,7 @@
       "properties": {
         "name": "Place 1",
         "phoneFormatted": "(202) 234-7336",
-        "addressFormatted": "33 Birchwood Drive, North Arlington",
+        "addressFormatted": "33 Birchwood Drive",
         "hoursFormatted": "10 AM - 9 PM"
       }
     },
@@ -31,7 +31,7 @@
       "properties": {
         "name": "Place 2",
         "phoneFormatted": "(202) 234-7336",
-        "addressFormatted": "33 Birchwood Drive, North Arlington",
+        "addressFormatted": "33 Birchwood Drive",
         "hoursFormatted": "11 AM - 9 PM"
       }
     },
@@ -48,7 +48,7 @@
       "properties": {
         "name": "Place 3",
         "phoneFormatted": "(202) 234-7336",
-        "addressFormatted": "33 Birchwood Drive, North Arlington",
+        "addressFormatted": "33 Birchwood Drive",
         "hoursFormatted": "9 AM - 9 PM"
       }
     },
@@ -65,7 +65,7 @@
       "properties": {
         "name": "Place 4",
         "phoneFormatted": "(202) 234-7336",
-        "addressFormatted": "33 Birchwood Drive, North Arlington",
+        "addressFormatted": "33 Birchwood Drive",
         "hoursFormatted": "12 AM - 6 PM"
       }
     },
@@ -82,7 +82,7 @@
       "properties": {
         "name": "Place 4",
         "phoneFormatted": "(202) 234-7336",
-        "addressFormatted": "33 Birchwood Drive, North Arlington",
+        "addressFormatted": "33 Birchwood Drive",
         "hoursFormatted": "11 AM - 9 PM"
       }
     },
@@ -99,7 +99,7 @@
       "properties": {
         "name": "Place 5",
         "phoneFormatted": "(202) 234-7336",
-        "addressFormatted": "33 Birchwood Drive, North Arlington",
+        "addressFormatted": "33 Birchwood Drive",
         "hoursFormatted": "10 AM - 9 PM"
       }
     },
@@ -116,7 +116,7 @@
       "properties": {
         "name": "Place 6",
         "phoneFormatted": "(202) 234-7336",
-        "addressFormatted": "33 Birchwood Drive, North Arlington",
+        "addressFormatted": "33 Birchwood Drive",
         "hoursFormatted": "11 AM - 9 PM"
       }
     },
@@ -133,7 +133,7 @@
       "properties": {
         "name": "Place 6",
         "phoneFormatted": "(202) 234-7336",
-        "addressFormatted": "33 Birchwood Drive, North Arlington",
+        "addressFormatted": "33 Birchwood Drive",
         "hoursFormatted": "6 AM - 9 PM"
       }
     },
@@ -150,7 +150,7 @@
       "properties": {
         "name": "Place 7",
         "phoneFormatted": "(202) 234-7336",
-        "addressFormatted": "33 Birchwood Drive, North Arlington",
+        "addressFormatted": "33 Birchwood Drive",
         "hoursFormatted": "7 AM - 8 PM"
       }
     },
@@ -167,7 +167,7 @@
       "properties": {
         "name": "Place 8",
         "phoneFormatted": "(202) 234-7336",
-        "addressFormatted": "33 Birchwood Drive, North Arlington",
+        "addressFormatted": "33 Birchwood Drive",
         "hoursFormatted": "8 AM - 9 PM"
       }
     },
@@ -184,7 +184,7 @@
       "properties": {
         "name": "Place 9",
         "phoneFormatted": "(202) 234-7336",
-        "addressFormatted": "33 Birchwood Drive, North Arlington",
+        "addressFormatted": "33 Birchwood Drive",
         "hoursFormatted": "11 AM - 9 PM"
       }
     },
@@ -201,7 +201,7 @@
       "properties": {
         "name": "Place 10",
         "phoneFormatted": "(202) 234-7336",
-        "addressFormatted": "33 Birchwood Drive, North Arlington",
+        "addressFormatted": "33 Birchwood Drive",
         "hoursFormatted": "8 AM - 10 PM"
       }
     }
