@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/mapbox/store-locator-react-native#readme",
   "dependencies": {
-    "@turf/points-within-polygon": "^5.0.4",
+    "@turf/bbox": "^5.0.4",
+    "@turf/distance": "^5.0.4",
     "mapbox": "^1.0.0-beta9",
     "react-native-snap-carousel": "^3.4.0",
     "url": "^0.11.0"

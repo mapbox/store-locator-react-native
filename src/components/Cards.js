@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 24,
+    bottom: 30,
     zIndex: 10,
   },
   slideStyle: {
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 20,
     paddingHorizontal: 22,
-    paddingRight: 42,
     flex: 0.40,
     backgroundColor: 'white',
     borderBottomLeftRadius: 10,
@@ -187,7 +186,7 @@ class Cards extends React.Component {
             </View>
 
             <View>
-              <Text style={[styles.subheader, { color: this.props.cardTextColor }]}>Phone</Text>
+              <Text style={[styles.subheader, { color: this.props.cardTextColor, textAlign: 'right' }]}>Phone</Text>
               <Text style={[styles.subheader, { color: this.props.cardTextColor }]}>{props.phoneFormatted}</Text>
             </View>
           </View>

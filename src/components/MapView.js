@@ -9,14 +9,13 @@ import CurrentLocation from './CurrentLocation';
 import Places from './Places';
 import Cards from './Cards';
 import Theme from './Theme';
-
 import DirectionType from '../enums/DirectionType';
+
 import bbox from '@turf/bbox';
-import pointsWithinPolygon from '@turf/points-within-polygon';
 
 const IS_ANDROID = Platform.OS === 'android';
 const BOUNDS_PADDING_SIDE = IS_ANDROID ? PixelRatio.getPixelSizeForLayoutSize(60) : 60;
-const BOUNDS_PADDING_BOTTOM = IS_ANDROID ? PixelRatio.getPixelSizeForLayoutSize(200) : 200;
+const BOUNDS_PADDING_BOTTOM = IS_ANDROID ? PixelRatio.getPixelSizeForLayoutSize(206) : 206;
 
 class MapView extends React.Component {
   static propTypes = {
@@ -48,7 +47,6 @@ class MapView extends React.Component {
      */
     featureCollection: PropTypes.object.isRequired,
 
-
     /**
      * Mocks user location to be the center coordinate on the map
      */
@@ -76,6 +74,8 @@ class MapView extends React.Component {
       activeIndex: 0,
       activeID: activeID,
       origin: null,
+      region: null,
+      layout: null,
       destination: destination,
       centerCoordinate: props.centerCoordinate,
     };
@@ -84,6 +84,13 @@ class MapView extends React.Component {
     this.onLocationChange = this.onLocationChange.bind(this);
     this.onDirectionsFetched = this.onDirectionsFetched.bind(this);
     this.onActiveIndexChange = this.onActiveIndexChange.bind(this);
+    this.onLayout = this.onLayout.bind(this);
+    this.onRegionWillChange = this.onRegionWillChange.bind(this);
+  }
+
+  onLayout (e) {
+    const layout = e.nativeEvent.layout;
+    this.setState({ layout: layout });
   }
 
   async onPress (pressFeature) {
@@ -104,6 +111,7 @@ class MapView extends React.Component {
         if (feature.id === currentFeature.id) {
           this.setState({
             activeIndex: i,
+            isChangeFromPress: true,
             destination: feature.geometry.coordinates,
           });
           break;
@@ -122,6 +130,7 @@ class MapView extends React.Component {
     this.setState({
       activeIndex: index,
       activeID: feature.id,
+      isChangeFromPress: false,
       destination: feature.geometry.coordinates,
     });
   }
@@ -131,7 +140,9 @@ class MapView extends React.Component {
   }
 
   onDirectionsFetched (directions) {
-    this.fitBounds(directions);
+    if (!this.state.isChangeFromPress) {
+      this.fitBounds(directions);
+    }
   }
 
   fitBounds (directions) {
@@ -146,6 +157,14 @@ class MapView extends React.Component {
       BOUNDS_PADDING_SIDE,
     ];
     this.map.fitBounds([boundingBox[2], boundingBox[3]], [boundingBox[0], boundingBox[1]], padding, 200);
+  }
+
+  onRegionWillChange (regionFeature) {
+    this.setState({ region: regionFeature });
+
+    if (this.props.onRegionWillChange) {
+      this.props.onRegionWillChange(regionFeature);
+    }
   }
 
   get directionsStyle () {
@@ -183,13 +202,14 @@ class MapView extends React.Component {
     }
 
     return (
-      <View style={this.props.style}>
+      <View style={this.props.style} onLayout={this.onLayout}>
         <MapboxGL.MapView
           ref={c => this.map = c}
           zoomLevel={this.props.zoomLevel}
           styleURL={this.props.theme.styleURL}
           centerCoordinate={this.state.centerCoordinate}
           onPress={this.onPress}
+          onRegionWillChange={this.onRegionWillChange}
           style={{ flex: 1 }}>
 
           {this.props.children}

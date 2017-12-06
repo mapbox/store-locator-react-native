@@ -29,7 +29,7 @@ import {
 } from './themes';
 
 const IS_IOS = Platform.OS === 'ios';
-const MAPBOX_ACCESS_TOKEN = '<Enter access token here>';
+const MAPBOX_ACCESS_TOKEN = 'Enter Access Token';
 
 console.disableYellowBox = true;
 
@@ -119,8 +119,8 @@ class App extends React.Component {
   }
 
   renderThemeItem ({ item, index }) {
-    const marginTop = index === 0 ? 30 : 15;
-    const marginBottom = 15;
+    const marginTop = index === 0 ? 16 : 8;
+    const marginBottom = 8;
 
     const style = {
       flex: 1,
@@ -135,7 +135,7 @@ class App extends React.Component {
     return (
       <TouchableOpacity onPress={() => this.setState({ activeTheme: item.theme })}>
         <View style={style}>
-          <Image source={item.image} resizeMode='contain' style={styles.matchParent} />
+          <Image source={item.image} style={{ width: 130, flex: 1 }} />
         </View>
       </TouchableOpacity>
     );
@@ -143,22 +143,30 @@ class App extends React.Component {
 
   renderThemeList () {
     return (
-      <FlatList
-        data={ThemeList}
-        keyExtractor={(item) => item.name}
-        renderItem={this.renderThemeItem} />
+      <View style={{ flex: 1 }}>
+        <View style={{ alignItems: 'center', justifyContent: 'center', height: 60 }}>
+          <Text style={{ marginTop: 8, fontWeight: 'bold', fontSize: 16 }}>Tap a theme</Text>
+        </View>
+        <FlatList
+          data={ThemeList}
+          keyExtractor={(item) => item.name}
+          renderItem={this.renderThemeItem} />
+      </View>
     );
   }
 
   renderMap () {
-    if (this.state.activeTheme) {
-      StatusBar.setBarStyle('light-content');
+    if (!this.state.activeTheme) {
+      return null;
     }
+
+    StatusBar.setBarStyle('light-content');
 
     return (
       <Modal
         visible={!!this.state.activeTheme}
         animationType='slide'
+        transparent
         onRequestClose={this.onDismiss}>
         <View style={styles.matchParent}>
           <StoreLocatorKit.MapView
