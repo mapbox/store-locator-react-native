@@ -45,10 +45,8 @@ class Directions extends React.Component {
       'mapbox/cycling',
       'mapbox/driving-traffic',
     ]),
-  };
 
-  static defaultProps = {
-    type: 'driving',
+    style: PropTypes.object,
   };
 
   constructor (props) {
@@ -125,7 +123,7 @@ class Directions extends React.Component {
         destLatLng,
       ], requestOptions);
     } catch (e) {
-      console.log(e);
+      console.log(e); // eslint-disable-line
     }
 
     if (res == null) {

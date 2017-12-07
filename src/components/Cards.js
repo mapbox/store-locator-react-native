@@ -1,7 +1,7 @@
 import React from 'react';
 import MapboxGL from '@mapbox/react-native-mapbox-gl';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet, ScrollView, Image, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import SnapCarousel from 'react-native-snap-carousel';
 import findDistance from '@turf/distance';
 
@@ -79,6 +79,11 @@ class Cards extends React.Component {
     data: PropTypes.array.isRequired,
 
     /**
+     * Current location on map
+     */
+    origin: PropTypes.arrayOf(PropTypes.number),
+
+    /**
      * Theme object that represent current theme displayed on map,
      * see Theme.js for more information
      */
@@ -133,7 +138,7 @@ class Cards extends React.Component {
     }
   }
 
-  renderDefaultItem ({ item, index }) {
+  renderDefaultItem ({ item }) {
     const feature = item;
     const props = feature.properties;
 
@@ -143,17 +148,12 @@ class Cards extends React.Component {
       height: this.props.itemHeight,
     };
 
-    const rowPadding = {
-      flexDirection: 'row',
-      paddingVertical: 20,
-      paddingHorizontal: 14,
-    };
-
-    const distance = findDistance(
+    let distance = findDistance(
       MapboxGL.geoUtils.makePoint(this.props.origin),
       feature,
       { units: 'miles' },
-    )
+    );
+    distance = Math.round(distance * 10) / 10;
 
     return (
       <View key={feature.id} style={style}>
@@ -166,14 +166,14 @@ class Cards extends React.Component {
             <View style={styles.slideMeta}>
               <View style={styles.slideMetaRow}>
                 <Text style={styles.header}>{props.name}</Text>
-                <Text style={styles.header}>{distance.toPrecision(2)}</Text>
+                <Text style={styles.header}>{distance}</Text>
               </View>
 
               <View style={styles.slideMetaRow}>
                 <Text
                   ellipsizeMode='tail'
                   numberOfLines={1}
-                  style={[styles.subheader, { flex: 0.9, }]}>{props.addressFormatted}</Text>
+                  style={[styles.subheader, { flex: 0.9 }]}>{props.addressFormatted}</Text>
                 <Text style={[styles.subheader, { paddingRight: 4 }]}>mi</Text>
               </View>
             </View>
@@ -181,13 +181,13 @@ class Cards extends React.Component {
 
           <View style={styles.slideBottomRow}>
             <View>
-              <Text style={[styles.subheader, { color: this.props.cardTextColor }]}>Hours</Text>
-              <Text style={[styles.subheader, { color: this.props.cardTextColor }]}>{props.hoursFormatted}</Text>
+              <Text style={[styles.subheader, { color: this.props.theme.cardTextColor }]}>Hours</Text>
+              <Text style={[styles.subheader, { color: this.props.theme.cardTextColor }]}>{props.hoursFormatted}</Text>
             </View>
 
             <View>
-              <Text style={[styles.subheader, { color: this.props.cardTextColor, textAlign: 'right' }]}>Phone</Text>
-              <Text style={[styles.subheader, { color: this.props.cardTextColor }]}>{props.phoneFormatted}</Text>
+              <Text style={[styles.subheader, { color: this.props.theme.cardTextColor, textAlign: 'right' }]}>Phone</Text>
+              <Text style={[styles.subheader, { color: this.props.theme.cardTextColor }]}>{props.phoneFormatted}</Text>
             </View>
           </View>
         </View>

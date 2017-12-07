@@ -16,7 +16,6 @@ import MapboxGL from '@mapbox/react-native-mapbox-gl';
 import StoreLocatorKit from '@mapbox/store-locator-react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import bbox from '@turf/bbox';
 
 import places from '../assets/places.json';
 
@@ -29,9 +28,7 @@ import {
 } from './themes';
 
 const IS_IOS = Platform.OS === 'ios';
-const MAPBOX_ACCESS_TOKEN = 'Enter Access Token';
-
-console.disableYellowBox = true;
+const MAPBOX_ACCESS_TOKEN = 'Enter access token';
 
 const ThemeList = [
   {
@@ -206,7 +203,7 @@ class App extends React.Component {
         {this.renderThemeList()}
         {this.renderMap()}
       </View>
-    )
+    );
   }
 }
 

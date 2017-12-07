@@ -28,7 +28,7 @@ export const purpleTheme = new StoreLocatorKit.Theme({
   cardIcon: cheeseBurgerIcon,
   cardTextColor: '#6A159B',
   accentColor: '#C7A8D9',
-})
+});
 
 export const blueTheme = new StoreLocatorKit.Theme({
   icon: blueUnselectedIceCream,
@@ -75,5 +75,5 @@ export const neutralTheme = new StoreLocatorKit.Theme({
   directionsLineColor: '#00BAFF',
   cardIcon: houseIcon,
   cardTextColor: '#000000',
-  accentColor: '#FFFFFF'
+  accentColor: '#FFFFFF',
 });
