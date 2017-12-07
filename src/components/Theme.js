@@ -49,7 +49,7 @@ class Theme {
   extend (overrides = {}) {
     Object.keys(overrides).forEach((prop) => {
       if (this.hasOwnProperty(prop)) {
-        this[prop] = overrides[props];
+        this[prop] = overrides[prop];
       }
     });
   }

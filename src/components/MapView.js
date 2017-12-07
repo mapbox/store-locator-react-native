@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from '@mapbox/react-native-mapbox-gl';
 
-import { View, StyleSheet, PixelRatio, Platform } from 'react-native';
+import { View, PixelRatio, Platform } from 'react-native';
 
 import Directions from './Directions';
 import CurrentLocation from './CurrentLocation';
@@ -104,7 +104,6 @@ class MapView extends React.Component {
     if (hitFeatureCollection.features.length > 0) {
       feature = hitFeatureCollection.features[0];
 
-      let nextActiveIndex = this.state.activeIndex;
       for (let i = 0; i < this.props.featureCollection.features.length; i++) {
         const currentFeature = this.props.featureCollection.features[i];
 
@@ -181,7 +180,7 @@ class MapView extends React.Component {
       activeStyle: {
         iconImage: this.props.theme.activeIcon,
       },
-    }
+    };
   }
 
   get currentLocationStyle () {
@@ -192,7 +191,7 @@ class MapView extends React.Component {
       outerCircleStyle: {
         circleColor: this.props.theme.directionsLineColor,
       },
-    }
+    };
   }
 
   render () {

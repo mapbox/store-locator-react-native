@@ -9,7 +9,7 @@ const styles = MapboxGL.StyleSheet.create({
   outerCircle: {
     circleRadius: 13,
     circleOpacity: 0.40,
-  }
+  },
 });
 
 class CurrentLocation extends React.Component {
@@ -82,7 +82,7 @@ class CurrentLocation extends React.Component {
   }
 
   onLocationError (error) {
-    console.log('Geolocation error', error);
+    console.log('Geolocation error', error); // eslint-disable-line
   }
 
   render () {

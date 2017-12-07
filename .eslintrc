@@ -1,0 +1,44 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": ["eslint:recommended"],
+  "plugins": ["react", "import"],
+  "rules": {
+    "comma-dangle": ["error", "always-multiline"],
+    "no-console": ["error", { allow: ["warn", "error"] }],
+    "semi": ["error", "always"],
+    "space-before-function-paren": ["error", "always"],
+
+    "react/jsx-no-duplicate-props": ["error"],
+    "react/jsx-no-undef": ["error"],
+    "react/jsx-uses-react": ["error"],
+    "react/jsx-uses-vars": ["error"],
+    "react/no-danger": ["error"],
+    "react/no-deprecated": ["error"],
+    "react/no-direct-mutation-state": ["error"],
+    "react/no-unknown-property": ["error"],
+    "react/prefer-es6-class": ["error", "always"],
+    "react/prop-types": ["error", { ignore: ["children"] }],
+    "react/react-in-jsx-scope": ["error"],
+    "react/require-render-return": ["error"],
+
+    "import/default": ["error"],
+    "import/export": ["error"],
+    "import/named": ["error"],
+    "import/newline-after-import": ["error"],
+    "import/no-duplicates": ["error"],
+    "import/no-dynamic-require": ["error"],
+    "import/no-webpack-loader-syntax": ["error"],
+    "import/prefer-default-export": ["error"]
+  }
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PixelRatio, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import MapboxGL from '@mapbox/react-native-mapbox-gl';
 
 const styles = MapboxGL.StyleSheet.create({
@@ -19,6 +19,11 @@ class Places extends React.Component {
      * FeatureCollection of points that we want to appear on the map.
      */
     featureCollection: PropTypes.object.isRequired,
+
+    /**
+     * Active ID of feature
+     */
+    activeID: PropTypes.any,
 
     /**
      * Active feature index
@@ -75,7 +80,7 @@ class Places extends React.Component {
           filter={['==', '$id', this.state.activeID]}
           style={[styles.icon, this.props.activeStyle]} />
       </MapboxGL.ShapeSource>
-    )
+    );
   }
 }
 

@@ -4,7 +4,8 @@
   "description": "A plug-and-play React Native app that cuts down on the set-up and development time needed to add a Store Locator into your app. Use our starter themes and features as a plug-and-play solution, or further customize your Store Locator with our flexible build.",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "./node_modules/eslint/bin/eslint.js ./src/** ./RNStoreLocatorExample/src/**",
+    "lint:fix": "npm run lint -- --fix"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,11 @@
     "mapbox": "^1.0.0-beta9",
     "react-native-snap-carousel": "^3.4.0",
     "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.3",
+    "eslint": "^4.12.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-react": "^7.5.1"
   }
 }
