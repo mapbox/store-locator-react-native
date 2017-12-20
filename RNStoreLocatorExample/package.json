@@ -8,7 +8,7 @@
 		"preinstall": "./scripts/npm_pack.sh"
 	},
 	"dependencies": {
-		"@mapbox/react-native-mapbox-gl": "git+ssh://git@github.com:mapbox/react-native-mapbox-gl.git",
+		"@mapbox/react-native-mapbox-gl": "6.0.2",
 		"@mapbox/store-locator-react-native": "file:../mapbox-store-locator-react-native-0.0.1.tgz",
 		"@turf/bbox": "^5.0.4",
 		"@turf/distance": "^5.0.4",

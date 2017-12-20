@@ -14,11 +14,11 @@ The React Native Locator Kit is a downloadable project for you to add beautiful 
 
 # What can I customize?
 
-We built this Kit to cut down on the set-up and development time needed to add a Store Locator into your app. Use our starter themes and features as a plug-and-play solution, or further customize your Store Locator with our flexible build. 
+We built this Kit to cut down on the set-up and development time needed to add a Store Locator into your app. Use our starter themes and features as a plug-and-play solution, or further customize your Store Locator with our flexible build.
 
 ### Add custom markers
 
-Use our pre-built markers, or add in your own by creating your own icon, using your company’s logo, or another open source image. 
+Use our pre-built markers, or add in your own by creating your own icon, using your company’s logo, or another open source image.
 
 ### Card icons
 
@@ -30,11 +30,11 @@ Add as many store locations as you wish as a GeoJSON file. Remember that you cou
 
 ### Map
 
-The Kit comes with five UI starter themes, but you can further customize these themes as you see fit. Or create your own custom map styles by using Mapbox Studio to build a style that fits your brand. 
+The Kit comes with five UI starter themes, but you can further customize these themes as you see fit. Or create your own custom map styles by using Mapbox Studio to build a style that fits your brand.
 
-### Routing profile 
+### Routing profile
 
-The Kit includes the use of the Mapbox Directions API to display estimated travel distances and display driving routes to store locations. It’s also possible to modify the routing profile to use our cycling or walking directions. 
+The Kit includes the use of the Mapbox Directions API to display estimated travel distances and display driving routes to store locations. It’s also possible to modify the routing profile to use our cycling or walking directions.
 
 
 # Installation
@@ -44,7 +44,7 @@ Dependencies
 - [node](https://nodejs.org/en/)
 - [npm](https://www.npmjs.com/)
 - [React Native](https://facebook.github.io/react-native/) >= 0.47.1
-- [React Native Mapbox GL](https://github.com/mapbox/react-native-mapbox-gl) >= 6.0.0 or master
+- [React Native Mapbox GL](https://github.com/mapbox/react-native-mapbox-gl) >= 6.0.2 or master
 - [Prop Types](https://github.com/facebook/prop-types)
 
 Git
