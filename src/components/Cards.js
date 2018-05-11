@@ -200,7 +200,7 @@ class Cards extends React.Component {
   }
 
   renderCarousel () {
-    if (!this.state.sliderWidth || !this.state.itemWidth || !this.props.data) {
+    if (!this.props.origin || !this.state.sliderWidth || !this.state.itemWidth || !this.props.data) {
       return null;
     }
     return (
