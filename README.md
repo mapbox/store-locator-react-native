@@ -50,7 +50,7 @@ Dependencies
 Git
 
 ```
-git clone git@github.com:mapbox/store-locator-react-native-gl.git
+git clone git@github.com:mapbox/store-locator-react-native.git
 cd store-locator-react-native
 ```
 
