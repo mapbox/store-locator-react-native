@@ -1,21 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import MapboxGL from '@mapbox/react-native-mapbox-gl';
+import React from "react";
+import PropTypes from "prop-types";
+import MapboxGL from "@rnmapbox/maps";
 
-import { View, PixelRatio, Platform } from 'react-native';
+import { View, PixelRatio, Platform } from "react-native";
 
-import Directions from './Directions';
-import CurrentLocation from './CurrentLocation';
-import Places from './Places';
-import Cards from './Cards';
-import Theme from './Theme';
-import DirectionType from '../enums/DirectionType';
+import Directions from "./Directions";
+import CurrentLocation from "./CurrentLocation";
+import Places from "./Places";
+import Cards from "./Cards";
+import Theme from "./Theme";
+import DirectionType from "../enums/DirectionType";
 
-import bbox from '@turf/bbox';
+import bbox from "@turf/bbox";
 
-const IS_ANDROID = Platform.OS === 'android';
-const BOUNDS_PADDING_SIDE = IS_ANDROID ? PixelRatio.getPixelSizeForLayoutSize(60) : 60;
-const BOUNDS_PADDING_BOTTOM = IS_ANDROID ? PixelRatio.getPixelSizeForLayoutSize(206) : 206;
+const IS_ANDROID = Platform.OS === "android";
+const BOUNDS_PADDING_SIDE = IS_ANDROID
+  ? PixelRatio.getPixelSizeForLayoutSize(60)
+  : 60;
+const BOUNDS_PADDING_BOTTOM = IS_ANDROID
+  ? PixelRatio.getPixelSizeForLayoutSize(206)
+  : 206;
 
 class MapView extends React.Component {
   static propTypes = {
@@ -36,10 +40,10 @@ class MapView extends React.Component {
      * possible for driving, walking, and cycling.
      */
     directionType: PropTypes.oneOf([
-      'mapbox/driving-traffic',
-      'mapbox/walking',
-      'mapbox/cycling',
-      'mapbox/driving-traffic',
+      "mapbox/driving-traffic",
+      "mapbox/walking",
+      "mapbox/cycling",
+      "mapbox/driving-traffic",
     ]),
 
     /**
@@ -55,13 +59,17 @@ class MapView extends React.Component {
 
   static defaultProps = {
     directionType: DirectionType.Default,
-  }
+  };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
-    let destination = null, activeID = -1;
-    if (this.props.featureCollection && this.props.featureCollection.features.length > 0) {
+    let destination = null,
+      activeID = -1;
+    if (
+      this.props.featureCollection &&
+      this.props.featureCollection.features.length > 0
+    ) {
       const feature = this.props.featureCollection.features[0];
 
       if (feature) {
@@ -88,17 +96,19 @@ class MapView extends React.Component {
     this.onRegionWillChange = this.onRegionWillChange.bind(this);
   }
 
-  onLayout (e) {
+  onLayout(e) {
     const layout = e.nativeEvent.layout;
     this.setState({ layout: layout });
   }
 
-  async onPress (pressFeature) {
+  async onPress(pressFeature) {
     const { screenPointX, screenPointY } = pressFeature.properties;
 
-    const hitFeatureCollection = await this.map.queryRenderedFeaturesAtPoint([screenPointX, screenPointY], null, [
-      Places.UnselectedSymbolID,
-    ]);
+    const hitFeatureCollection = await this.map.queryRenderedFeaturesAtPoint(
+      [screenPointX, screenPointY],
+      null,
+      [Places.UnselectedSymbolID]
+    );
 
     let feature = null;
     if (hitFeatureCollection.features.length > 0) {
@@ -119,7 +129,7 @@ class MapView extends React.Component {
     }
   }
 
-  onActiveIndexChange (index) {
+  onActiveIndexChange(index) {
     const feature = this.props.featureCollection.features[index];
 
     if (!feature) {
@@ -134,19 +144,19 @@ class MapView extends React.Component {
     });
   }
 
-  onLocationChange (coord) {
+  onLocationChange(coord) {
     this.setState({ origin: coord });
   }
 
-  onDirectionsFetched (directions) {
+  onDirectionsFetched(directions) {
     if (!this.state.isChangeFromPress) {
       this.fitBounds(directions);
     }
   }
 
-  fitBounds (directions) {
+  fitBounds(directions) {
     const boundingBox = bbox(
-      MapboxGL.geoUtils.makeFeature(directions.geometry),
+      MapboxGL.geoUtils.makeFeature(directions.geometry)
     );
 
     const padding = [
@@ -155,10 +165,15 @@ class MapView extends React.Component {
       BOUNDS_PADDING_BOTTOM,
       BOUNDS_PADDING_SIDE,
     ];
-    this.map.fitBounds([boundingBox[2], boundingBox[3]], [boundingBox[0], boundingBox[1]], padding, 200);
+    this.map.fitBounds(
+      [boundingBox[2], boundingBox[3]],
+      [boundingBox[0], boundingBox[1]],
+      padding,
+      200
+    );
   }
 
-  onRegionWillChange (regionFeature) {
+  onRegionWillChange(regionFeature) {
     this.setState({ region: regionFeature });
 
     if (this.props.onRegionWillChange) {
@@ -166,13 +181,13 @@ class MapView extends React.Component {
     }
   }
 
-  get directionsStyle () {
+  get directionsStyle() {
     return {
       lineColor: this.props.theme.directionsLineColor,
     };
   }
 
-  get placesStyle () {
+  get placesStyle() {
     return {
       style: {
         iconImage: this.props.theme.icon,
@@ -183,7 +198,7 @@ class MapView extends React.Component {
     };
   }
 
-  get currentLocationStyle () {
+  get currentLocationStyle() {
     return {
       innerCircleStyle: {
         circleColor: this.props.theme.directionsLineColor,
@@ -194,7 +209,7 @@ class MapView extends React.Component {
     };
   }
 
-  render () {
+  render() {
     let mockUserLocation = null;
     if (this.props.simulateUserLocation) {
       mockUserLocation = this.state.centerCoordinate;
@@ -203,14 +218,14 @@ class MapView extends React.Component {
     return (
       <View style={this.props.style} onLayout={this.onLayout}>
         <MapboxGL.MapView
-          ref={c => this.map = c}
+          ref={(c) => (this.map = c)}
           zoomLevel={this.props.zoomLevel}
           styleURL={this.props.theme.styleURL}
           centerCoordinate={this.state.centerCoordinate}
           onPress={this.onPress}
           onRegionWillChange={this.onRegionWillChange}
-          style={{ flex: 1 }}>
-
+          style={{ flex: 1 }}
+        >
           {this.props.children}
 
           <Directions
@@ -218,18 +233,21 @@ class MapView extends React.Component {
             origin={this.state.origin}
             destination={this.state.destination}
             onDirectionsFetched={this.onDirectionsFetched}
-            style={this.directionsStyle} />
+            style={this.directionsStyle}
+          />
 
           <Places
             featureCollection={this.props.featureCollection}
             activeIndex={this.state.activeIndex}
             activeID={this.state.activeID}
-            {...this.placesStyle} />
+            {...this.placesStyle}
+          />
 
           <CurrentLocation
             mockUserLocation={mockUserLocation}
             onLocationChange={this.onLocationChange}
-            {...this.currentLocationStyle} />
+            {...this.currentLocationStyle}
+          />
         </MapboxGL.MapView>
 
         <Cards
@@ -237,7 +255,8 @@ class MapView extends React.Component {
           origin={this.state.origin}
           data={this.props.featureCollection.features}
           onActiveIndexChange={this.onActiveIndexChange}
-          activeIndex={this.state.activeIndex} />
+          activeIndex={this.state.activeIndex}
+        />
       </View>
     );
   }
