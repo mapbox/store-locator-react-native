@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import MapboxGL from '@mapbox/react-native-mapbox-gl';
-import MapboxClient from 'mapbox';
+import React from "react";
+import PropTypes from "prop-types";
+import MapboxGL from "@rnmapbox/maps";
+import MapboxClient from "mapbox";
 
-import Places from './Places';
+import Places from "./Places";
 
-const styles = MapboxGL.StyleSheet.create({
+const styles = {
   directionsLine: {
     lineWidth: 3,
     lineCap: MapboxGL.LineCap.Round,
     lineJoin: MapboxGL.LineJoin.Round,
   },
-});
+};
 
 class Directions extends React.Component {
   static propTypes = {
@@ -40,16 +40,16 @@ class Directions extends React.Component {
      * walking, driving, cycling. Defaults to driving
      */
     type: PropTypes.oneOf([
-      'mapbox/driving-traffic',
-      'mapbox/walking',
-      'mapbox/cycling',
-      'mapbox/driving-traffic',
+      "mapbox/driving-traffic",
+      "mapbox/walking",
+      "mapbox/cycling",
+      "mapbox/driving-traffic",
     ]),
 
     style: PropTypes.object,
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -60,13 +60,16 @@ class Directions extends React.Component {
     this._mapboxClient = null;
   }
 
-  async componentDidMount () {
-    this.setState({ mapboxClient: new MapboxClient(this.props.accessToken) }, () => {
-      this.fetchDirections(this.props.origin, this.props.destination);
-    });
+  async componentDidMount() {
+    this.setState(
+      { mapboxClient: new MapboxClient(this.props.accessToken) },
+      () => {
+        this.fetchDirections(this.props.origin, this.props.destination);
+      }
+    );
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     const origin = this.props.origin;
     const dest = this.props.destination;
 
@@ -78,7 +81,10 @@ class Directions extends React.Component {
     const nextOrigin = nextProps.origin;
     const nextDest = nextProps.destination;
 
-    if (this.areCoordinatesEqual(origin, nextOrigin) && this.areCoordinatesEqual(dest, nextDest)) {
+    if (
+      this.areCoordinatesEqual(origin, nextOrigin) &&
+      this.areCoordinatesEqual(dest, nextDest)
+    ) {
       return;
     }
 
@@ -87,7 +93,7 @@ class Directions extends React.Component {
     }
   }
 
-  areCoordinatesEqual (c1, c2) {
+  areCoordinatesEqual(c1, c2) {
     if (!c1 || !c2) {
       return false;
     }
@@ -96,7 +102,7 @@ class Directions extends React.Component {
     return dLng <= 6e-6 && dLat <= 6e-6;
   }
 
-  async fetchDirections (origin, dest) {
+  async fetchDirections(origin, dest) {
     if (!origin || !dest || !this.state.mapboxClient) {
       return;
     }
@@ -113,15 +119,15 @@ class Directions extends React.Component {
 
     const requestOptions = {
       profile: this.props.type,
-      geometry: 'polyline',
+      geometry: "polyline",
     };
 
     let res = null;
     try {
-      res = await this.state.mapboxClient.getDirections([
-        originLatLng,
-        destLatLng,
-      ], requestOptions);
+      res = await this.state.mapboxClient.getDirections(
+        [originLatLng, destLatLng],
+        requestOptions
+      );
     } catch (e) {
       console.log(e); // eslint-disable-line
     }
@@ -142,16 +148,20 @@ class Directions extends React.Component {
     this.setState({ directions: directions });
   }
 
-  render () {
+  render() {
     if (!this.state.directions) {
       return null;
     }
     return (
-      <MapboxGL.ShapeSource id='mapbox-directions-source' shape={this.state.directions.geometry}>
+      <MapboxGL.ShapeSource
+        id="mapbox-directions-source"
+        shape={this.state.directions.geometry}
+      >
         <MapboxGL.LineLayer
-          id='mapbox-directions-line'
+          id="mapbox-directions-line"
           belowLayerID={Places.UnselectedSymbolID}
-          style={[styles.directionsLine, this.props.style]} />
+          style={[styles.directionsLine, this.props.style]}
+        />
       </MapboxGL.ShapeSource>
     );
   }

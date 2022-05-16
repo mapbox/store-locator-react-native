@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import MapboxGL from '@mapbox/react-native-mapbox-gl';
+import React from "react";
+import PropTypes from "prop-types";
+import MapboxGL from "@rnmapbox/maps";
 
-const styles = MapboxGL.StyleSheet.create({
+const styles = {
   innerCircle: {
     circleRadius: 8,
   },
   outerCircle: {
     circleRadius: 13,
-    circleOpacity: 0.40,
+    circleOpacity: 0.4,
   },
-});
+};
 
 class CurrentLocation extends React.Component {
   static propTypes = {
@@ -35,7 +35,7 @@ class CurrentLocation extends React.Component {
     outerCircleStyle: PropTypes.any,
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -47,15 +47,19 @@ class CurrentLocation extends React.Component {
     this.onLocationError = this.onLocationError.bind(this);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (!this.props.mockUserLocation) {
       this._locationWatchID = navigator.geolocation.watchPosition(
         this.onLocationChange,
         this.onLocationError,
-        { enableHighAccuracy: true, useSignificantChanges: true },
+        { enableHighAccuracy: true, useSignificantChanges: true }
       );
     } else {
-      this.setState({ currentPosition: MapboxGL.geoUtils.makePoint(this.props.mockUserLocation) });
+      this.setState({
+        currentPosition: MapboxGL.geoUtils.makePoint(
+          this.props.mockUserLocation
+        ),
+      });
 
       if (this.props.onLocationChange) {
         this.props.onLocationChange(this.props.mockUserLocation);
@@ -63,13 +67,13 @@ class CurrentLocation extends React.Component {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (!this.props.mockUserLocation) {
       navigator.geolocation.clearWatch(this._locationWatchID);
     }
   }
 
-  onLocationChange (position) {
+  onLocationChange(position) {
     const coord = [position.coords.longitude, position.coords.latitude];
 
     if (this.props.onLocationChange) {
@@ -81,25 +85,30 @@ class CurrentLocation extends React.Component {
     });
   }
 
-  onLocationError (error) {
-    console.log('Geolocation error', error); // eslint-disable-line
+  onLocationError(error) {
+    console.log("Geolocation error", error); // eslint-disable-line
   }
 
-  render () {
+  render() {
     if (!this.state.currentPosition) {
       return null;
     }
 
     return (
-      <MapboxGL.ShapeSource id='store-locator-current-location-source' shape={this.state.currentPosition}>
+      <MapboxGL.ShapeSource
+        id="store-locator-current-location-source"
+        shape={this.state.currentPosition}
+      >
         <MapboxGL.CircleLayer
-          id='store-locator-current-location-outer-circle'
-          style={[styles.outerCircle, this.props.outerCircleStyle]} />
+          id="store-locator-current-location-outer-circle"
+          style={[styles.outerCircle, this.props.outerCircleStyle]}
+        />
 
         <MapboxGL.CircleLayer
-          id='store-locator-current-location-inner-circle'
-          aboveLayerID='store-locator-current-location-outer-circle'
-          style={[styles.innerCircle, this.props.innerCircleStyle]} />
+          id="store-locator-current-location-inner-circle"
+          aboveLayerID="store-locator-current-location-outer-circle"
+          style={[styles.innerCircle, this.props.innerCircleStyle]}
+        />
       </MapboxGL.ShapeSource>
     );
   }

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/mapbox/store-locator-react-native#readme",
   "dependencies": {
+    "@rnmapbox/maps": "rnmapbox/maps#main",
     "@turf/bbox": "^5.0.4",
     "@turf/distance": "^5.0.4",
     "mapbox": "^1.0.0-beta9",

@@ -1,18 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Platform } from 'react-native';
-import MapboxGL from '@mapbox/react-native-mapbox-gl';
+import React from "react";
+import PropTypes from "prop-types";
+import { Platform } from "react-native";
+import MapboxGL from "@rnmapbox/maps";
 
-const styles = MapboxGL.StyleSheet.create({
+const styles = {
   icon: {
     iconAllowOverlap: true,
-    iconSize: Platform.OS === 'android' ? 0.50 : 0.25,
+    iconSize: Platform.OS === "android" ? 0.5 : 0.25,
   },
-});
+};
 
 class Places extends React.Component {
-  static SelectedSymbolID = 'store-locator-selected-symbol';
-  static UnselectedSymbolID = 'store-locator-places-unselected-symbols';
+  static SelectedSymbolID = "store-locator-selected-symbol";
+  static UnselectedSymbolID = "store-locator-places-unselected-symbols";
 
   static propTypes = {
     /**
@@ -45,7 +45,7 @@ class Places extends React.Component {
     activeIndex: 0,
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -54,31 +54,37 @@ class Places extends React.Component {
     };
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.state.activeIndex !== nextProps.activeIndex) {
       this.setState({
         activeIndex: nextProps.activeIndex,
-        activeID: this.props.featureCollection.features[nextProps.activeIndex].id,
+        activeID:
+          this.props.featureCollection.features[nextProps.activeIndex].id,
       });
     }
   }
 
-  render () {
+  render() {
     if (!this.props.featureCollection) {
       return null;
     }
     return (
-      <MapboxGL.ShapeSource id='store-locator-places-source' shape={this.props.featureCollection}>
+      <MapboxGL.ShapeSource
+        id="store-locator-places-source"
+        shape={this.props.featureCollection}
+      >
         <MapboxGL.SymbolLayer
           id={Places.UnselectedSymbolID}
-          filter={['!=', '$id', this.state.activeID]}
-          style={[styles.icon, this.props.style]} />
+          filter={["!=", "$id", this.state.activeID]}
+          style={[styles.icon, this.props.style]}
+        />
 
         <MapboxGL.SymbolLayer
           id={Places.SelectedSymbolID}
           aboveLayerID={Places.UnselectedSymbolID}
-          filter={['==', '$id', this.state.activeID]}
-          style={[styles.icon, this.props.activeStyle]} />
+          filter={["==", "$id", this.state.activeID]}
+          style={[styles.icon, this.props.activeStyle]}
+        />
       </MapboxGL.ShapeSource>
     );
   }
