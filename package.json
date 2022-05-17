@@ -21,6 +21,7 @@
     "@rnmapbox/maps": "rnmapbox/maps#main",
     "@turf/bbox": "^5.0.4",
     "@turf/distance": "^5.0.4",
+    "@turf/turf": "^6.5.0",
     "mapbox": "^1.0.0-beta9",
     "react-native-snap-carousel": "^3.4.0",
     "url": "^0.11.0"
