@@ -12,6 +12,7 @@ import Theme from "./Theme";
 import DirectionType from "../enums/DirectionType";
 
 import bbox from "@turf/bbox";
+import {feature} from '@turf/turf';
 
 const IS_ANDROID = Platform.OS === "android";
 const BOUNDS_PADDING_SIDE = IS_ANDROID
@@ -156,7 +157,7 @@ class MapView extends React.Component {
 
   fitBounds(directions) {
     const boundingBox = bbox(
-      MapboxGL.geoUtils.makeFeature(directions.geometry)
+      feature(directions.geometry)
     );
 
     const padding = [
@@ -219,15 +220,16 @@ class MapView extends React.Component {
       <View style={this.props.style} onLayout={this.onLayout}>
         <MapboxGL.MapView
           ref={(c) => (this.map = c)}
-          zoomLevel={this.props.zoomLevel}
           styleURL={this.props.theme.styleURL}
-          centerCoordinate={this.state.centerCoordinate}
           onPress={this.onPress}
           onRegionWillChange={this.onRegionWillChange}
           style={{ flex: 1 }}
         >
           {this.props.children}
-
+          <MapboxGL.Camera
+            zoomLevel={this.props.zoomLevel}
+            centerCoordinate={this.state.centerCoordinate}
+          />
           <Directions
             accessToken={this.props.accessToken}
             origin={this.state.origin}

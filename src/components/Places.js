@@ -76,14 +76,14 @@ class Places extends React.Component {
         <MapboxGL.SymbolLayer
           id={Places.UnselectedSymbolID}
           filter={["!=", "$id", this.state.activeID]}
-          style={[styles.icon, this.props.style]}
+          style={{...styles.icon, ...this.props.style}}
         />
 
         <MapboxGL.SymbolLayer
           id={Places.SelectedSymbolID}
           aboveLayerID={Places.UnselectedSymbolID}
           filter={["==", "$id", this.state.activeID]}
-          style={[styles.icon, this.props.activeStyle]}
+          style={{...styles.icon, ...this.props.activeStyle}}
         />
       </MapboxGL.ShapeSource>
     );

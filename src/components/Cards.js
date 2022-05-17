@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import SnapCarousel from "react-native-snap-carousel";
 import findDistance from "@turf/distance";
+import { point } from '@turf/turf'
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -152,7 +153,7 @@ class Cards extends React.Component {
     };
 
     let distance = findDistance(
-      MapboxGL.geoUtils.makePoint(this.props.origin),
+      point(this.props.origin),
       feature,
       { units: "miles" }
     );

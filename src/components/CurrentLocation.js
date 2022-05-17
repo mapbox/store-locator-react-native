@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import MapboxGL from "@rnmapbox/maps";
+import Geolocation from '@react-native-community/geolocation';
+import { point } from '@turf/turf'
 
 const styles = {
   innerCircle: {
@@ -49,14 +51,14 @@ class CurrentLocation extends React.Component {
 
   componentDidMount() {
     if (!this.props.mockUserLocation) {
-      this._locationWatchID = navigator.geolocation.watchPosition(
+      this._locationWatchID = Geolocation.watchPosition(
         this.onLocationChange,
         this.onLocationError,
         { enableHighAccuracy: true, useSignificantChanges: true }
       );
     } else {
       this.setState({
-        currentPosition: MapboxGL.geoUtils.makePoint(
+        currentPosition: point(
           this.props.mockUserLocation
         ),
       });
@@ -69,7 +71,7 @@ class CurrentLocation extends React.Component {
 
   componentWillUnmount() {
     if (!this.props.mockUserLocation) {
-      navigator.geolocation.clearWatch(this._locationWatchID);
+      Geolocation.clearWatch(this._locationWatchID);
     }
   }
 
@@ -81,7 +83,7 @@ class CurrentLocation extends React.Component {
     }
 
     this.setState({
-      currentPosition: MapboxGL.geoUtils.makePoint(coord),
+      currentPosition: point(coord),
     });
   }
 
@@ -101,13 +103,13 @@ class CurrentLocation extends React.Component {
       >
         <MapboxGL.CircleLayer
           id="store-locator-current-location-outer-circle"
-          style={[styles.outerCircle, this.props.outerCircleStyle]}
+          style={{...styles.outerCircle, ...this.props.outerCircleStyle}}
         />
 
         <MapboxGL.CircleLayer
           id="store-locator-current-location-inner-circle"
           aboveLayerID="store-locator-current-location-outer-circle"
-          style={[styles.innerCircle, this.props.innerCircleStyle]}
+          style={{...styles.innerCircle, ...this.props.innerCircleStyle}}
         />
       </MapboxGL.ShapeSource>
     );
