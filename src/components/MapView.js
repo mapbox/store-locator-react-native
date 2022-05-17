@@ -12,7 +12,7 @@ import Theme from "./Theme";
 import DirectionType from "../enums/DirectionType";
 
 import bbox from "@turf/bbox";
-import {feature} from '@turf/turf';
+import { feature } from "@turf/turf";
 
 const IS_ANDROID = Platform.OS === "android";
 const BOUNDS_PADDING_SIDE = IS_ANDROID
@@ -156,9 +156,7 @@ class MapView extends React.Component {
   }
 
   fitBounds(directions) {
-    const boundingBox = bbox(
-      feature(directions.geometry)
-    );
+    const boundingBox = bbox(feature(directions.geometry));
 
     const padding = [
       BOUNDS_PADDING_BOTTOM,
@@ -166,12 +164,12 @@ class MapView extends React.Component {
       BOUNDS_PADDING_BOTTOM,
       BOUNDS_PADDING_SIDE,
     ];
-    this.map.fitBounds(
-      [boundingBox[2], boundingBox[3]],
-      [boundingBox[0], boundingBox[1]],
-      padding,
-      200
-    );
+    // this.map.fitBounds(
+    //   [boundingBox[2], boundingBox[3]],
+    //   [boundingBox[0], boundingBox[1]],
+    //   padding,
+    //   200
+    // );
   }
 
   onRegionWillChange(regionFeature) {

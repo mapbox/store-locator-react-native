@@ -8,8 +8,8 @@ import Places from "./Places";
 const styles = {
   directionsLine: {
     lineWidth: 3,
-    lineCap: 'round',
-    lineJoin: 'round',
+    lineCap: "round",
+    lineJoin: "round",
   },
 };
 
@@ -63,13 +63,13 @@ class Directions extends React.Component {
   async componentDidMount() {
     try {
       this.setState(
-      { mapboxClient: new MapboxClient(this.props.accessToken) },
-      () => {
-        this.fetchDirections(this.props.origin, this.props.destination);
-      }
-    );
+        { mapboxClient: new MapboxClient(this.props.accessToken) },
+        () => {
+          this.fetchDirections(this.props.origin, this.props.destination);
+        }
+      );
     } catch (error) {
-      console.log('error mapboxClient', error)
+      console.log("error mapboxClient", error);
     }
   }
 
@@ -164,7 +164,7 @@ class Directions extends React.Component {
         <MapboxGL.LineLayer
           id="mapbox-directions-line"
           belowLayerID={Places.UnselectedSymbolID}
-          style={{...styles.directionsLine, ...this.props.style}}
+          style={{ ...styles.directionsLine, ...this.props.style }}
         />
       </MapboxGL.ShapeSource>
     );
