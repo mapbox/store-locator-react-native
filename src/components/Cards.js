@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import SnapCarousel from "react-native-snap-carousel";
 import findDistance from "@turf/distance";
-import { point } from '@turf/turf'
+import { point } from "@turf/turf";
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -109,6 +109,11 @@ class Cards extends React.Component {
      * Custom card height
      */
     itemHeight: PropTypes.number,
+
+    /**
+     * Custom text info
+     */
+    textInfo: PropTypes.object,
   };
 
   static defaultProps = {
@@ -152,11 +157,9 @@ class Cards extends React.Component {
       height: this.props.itemHeight,
     };
 
-    let distance = findDistance(
-      point(this.props.origin),
-      feature,
-      { units: "miles" }
-    );
+    let distance = findDistance(point(this.props.origin), feature, {
+      units: "miles",
+    });
     distance = Math.round(distance * 10) / 10;
 
     return (
@@ -203,7 +206,7 @@ class Cards extends React.Component {
                   { color: this.props.theme.cardTextColor },
                 ]}
               >
-                Hours
+                {this.props.textInfo?.leftText?.title}
               </Text>
               <Text
                 style={[
@@ -211,7 +214,7 @@ class Cards extends React.Component {
                   { color: this.props.theme.cardTextColor },
                 ]}
               >
-                {props.hoursFormatted}
+                {this.props.textInfo?.leftText?.value}
               </Text>
             </View>
 
@@ -222,7 +225,7 @@ class Cards extends React.Component {
                   { color: this.props.theme.cardTextColor, textAlign: "right" },
                 ]}
               >
-                Phone
+                {this.props.textInfo?.rightText?.title}
               </Text>
               <Text
                 style={[
@@ -230,7 +233,7 @@ class Cards extends React.Component {
                   { color: this.props.theme.cardTextColor },
                 ]}
               >
-                {props.phoneFormatted}
+                {this.props.textInfo?.rightText?.value}
               </Text>
             </View>
           </View>

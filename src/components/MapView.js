@@ -16,10 +16,10 @@ import { feature } from "@turf/turf";
 
 const IS_ANDROID = Platform.OS === "android";
 const BOUNDS_PADDING_SIDE = IS_ANDROID
-  ? PixelRatio.getPixelSizeForLayoutSize(60)
+  ? PixelRatio.getPixelSizeForLayoutSize(20)
   : 60;
 const BOUNDS_PADDING_BOTTOM = IS_ANDROID
-  ? PixelRatio.getPixelSizeForLayoutSize(206)
+  ? PixelRatio.getPixelSizeForLayoutSize(80)
   : 206;
 
 class MapView extends React.Component {
@@ -164,12 +164,13 @@ class MapView extends React.Component {
       BOUNDS_PADDING_BOTTOM,
       BOUNDS_PADDING_SIDE,
     ];
-    // this.map.fitBounds(
-    //   [boundingBox[2], boundingBox[3]],
-    //   [boundingBox[0], boundingBox[1]],
-    //   padding,
-    //   200
-    // );
+
+    this.camera.fitBounds(
+      [boundingBox[2], boundingBox[3]],
+      [boundingBox[0], boundingBox[1]],
+      padding,
+      this.props.fitBoundsAnimation
+    );
   }
 
   onRegionWillChange(regionFeature) {
@@ -225,6 +226,7 @@ class MapView extends React.Component {
         >
           {this.props.children}
           <MapboxGL.Camera
+            ref={(c) => (this.camera = c)}
             zoomLevel={this.props.zoomLevel}
             centerCoordinate={this.state.centerCoordinate}
           />
@@ -256,6 +258,7 @@ class MapView extends React.Component {
           data={this.props.featureCollection.features}
           onActiveIndexChange={this.onActiveIndexChange}
           activeIndex={this.state.activeIndex}
+          textInfo={this.props.textInfo}
         />
       </View>
     );
