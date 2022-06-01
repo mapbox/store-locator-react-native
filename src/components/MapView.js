@@ -194,6 +194,7 @@ class MapView extends React.Component {
       },
       activeStyle: {
         iconImage: this.props.theme.activeIcon,
+        iconSize: this.props.iconSize || 0.8,
       },
     };
   }
